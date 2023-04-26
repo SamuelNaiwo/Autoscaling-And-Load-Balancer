@@ -8,6 +8,9 @@
 ## Autoscaling
 - Delete and terminates broken instances and replaces with a fresh one. Status code 200 set to load balancer.
 
+Scale-Out – Replicate the same instance e.g t2.micro
+Scale-Up – Bigger server
+
 ## Target Groups
 - Load Balancer needs Target Groups with required ports which manages the access.
 
@@ -88,3 +91,7 @@
 25. Set the Key to `Name` and Value to `samuel-tech221-asg-alb-app`
 
 26. Review everthing and click create auto scaling group.
+
+## TEST ASG
+
+- To test if your ASG is working, you can terminate an instance and see if it will scale out another instance automatically for you.
