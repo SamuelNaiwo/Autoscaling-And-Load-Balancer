@@ -11,10 +11,80 @@
 ## Target Groups
 - Load Balancer needs Target Groups with required ports which manages the access.
 
-## Node App
+# Launch App In ASG (Auto Scaling Group)
 
-1. We need a load balancer and to be specific we need an application load balancer which is the seventh of the layer Open Systems Interconnection (OSI) model. The load balancer will handle request and selects a target from the target group rules. We need port 80 and port 3000 open.
+## Launch Template
 
-2. We need an ASG (Auto Scaling Group) to contain our EC2 instances for automatic scaling. For example a target tracking policy for if an instances CPU goes 50% or above. The ASG will delete the instance and scale out a new one. we also need a minimum and maximum of instances so the infrastructure is fualt tolerant.
+1. Click Launch template on the left hand side.
 
-3. We need 3 instances and each instance should be in a different AZ (Availabilty Zone). All instance should have port 80 and port 3000 open.
+2. Click Create a new launch template.
+
+3. Name your template to your requirement. Best practice to name what it is for. I used `samuel-tech221-launch-template-app`
+
+4. Description for version I used `samuel-tech221-launch-template-app-0.1`
+
+5. Select your AMI of your choice. I chose Ubuntu=bionic-18.
+
+6. Choose intance type of your choice. I chose `t2.micro`
+
+7. Choose your key pair if you have one already. I went with `tech221`
+
+8. Choose your security group for your requirements. We needed port 80 and 3000 open.
+
+9. In Advance Details, scroll down to user data and add your script to automate the tasks.
+
+10. Launch your template.
+
+## Auto Scaling Groups
+
+1. On the left menu bar scroll down to auto scaling and click auto scaling groups.
+
+2. Click create auto scaling group.
+
+3. Name your auto scaling group. I went with `samuel_tech221_app_asg`
+
+4. Select your launch template your created
+
+5. Click next
+
+6. Select the required VPC.
+
+7. Select your required AZ (Availability Zones). I went with: `eu-west-1a, eu-west-1b, -eu-west-1c`.
+
+8. Click next.
+
+9. Select attach to a new load balancer.
+
+10. Select Aplication Load Balancer
+
+11. Select internet-facing
+
+12. Create a target group
+
+13. SelectDon’t attach VPC
+
+14. Turn on elastic Load balancing
+
+15. Click next
+
+16. Choose your desired group size. I went with 2.
+
+17. Choose your minimum group size. I went with 2.
+
+18. Choose your maximum group size. I went with 3.
+
+19. Select target scaling policy
+
+20. Select your Metric Type. I went with (Average CPU utilization)
+
+21. Set your target to your requirement. I went with 50 for testing.
+
+22. Instances need 300
+
+23. I would set notification if on client site, but for this test we skipped.
+
+24. Click add tag.
+
+25. Set the Key to `Name` and Value to `samuel-tech221-asg-alb-app`
+
+26. Review everthing and click create auto scaling group.
